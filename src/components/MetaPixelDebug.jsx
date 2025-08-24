@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { trackProductView, trackAddToCart, trackPurchase, trackInitiateCheckout, isAutomaticTrackingDisabled, disableAutomaticTracking } from '@/assets/pixel';
+import { trackProductView, trackAddToCart, trackPurchase, trackInitiateCheckout, isAutomaticTrackingDisabled, disableAutomaticTracking, enableCustomTracking, isPixelReady } from '@/assets/pixel';
 
 const MetaPixelDebug = () => {
   const [debugMode, setDebugMode] = useState(false);
   const [trackingStatus, setTrackingStatus] = useState('Unknown');
+  const [pixelStatus, setPixelStatus] = useState('Unknown');
 
   const testProduct = {
     id: 'test-123',
@@ -32,11 +33,21 @@ const MetaPixelDebug = () => {
 
   const handleCheckTrackingStatus = () => {
     const isDisabled = isAutomaticTrackingDisabled();
-    setTrackingStatus(isDisabled ? 'Disabled ✅' : 'Enabled ❌');
+    setTrackingStatus(isDisabled ? 'Disabled ✅' : 'Enabled ✅');
+  };
+
+  const handleCheckPixelStatus = () => {
+    const isReady = isPixelReady();
+    setPixelStatus(isReady ? 'Ready ✅' : 'Not Ready ❌');
   };
 
   const handleDisableTracking = () => {
     disableAutomaticTracking();
+    handleCheckTrackingStatus();
+  };
+
+  const handleEnableTracking = () => {
+    enableCustomTracking();
     handleCheckTrackingStatus();
   };
 
@@ -65,12 +76,26 @@ const MetaPixelDebug = () => {
         </button>
       </div>
       
-      <div className="mb-3 p-2 bg-gray-100 rounded text-sm">
-        <div className="font-medium">Auto Tracking: {trackingStatus}</div>
-        <div className="text-xs text-gray-600 mt-1">Status: {trackingStatus}</div>
+      <div className="mb-3 space-y-2">
+        <div className="p-2 bg-gray-100 rounded text-sm">
+          <div className="font-medium">Pixel Status: {pixelStatus}</div>
+          <div className="text-xs text-gray-600 mt-1">Is Facebook Pixel loaded?</div>
+        </div>
+        
+        <div className="p-2 bg-gray-100 rounded text-sm">
+          <div className="font-medium">Tracking Status: {trackingStatus}</div>
+          <div className="text-xs text-gray-600 mt-1">Check if tracking is working</div>
+        </div>
       </div>
       
       <div className="space-y-2 mb-3">
+        <button
+          onClick={handleCheckPixelStatus}
+          className="w-full bg-purple-500 text-white px-3 py-2 rounded text-sm hover:bg-purple-600"
+        >
+          Check Pixel Status
+        </button>
+        
         <button
           onClick={handleCheckTrackingStatus}
           className="w-full bg-gray-500 text-white px-3 py-2 rounded text-sm hover:bg-gray-600"
@@ -79,10 +104,17 @@ const MetaPixelDebug = () => {
         </button>
         
         <button
+          onClick={handleEnableTracking}
+          className="w-full bg-green-500 text-white px-3 py-2 rounded text-sm hover:bg-green-600"
+        >
+          Enable Tracking
+        </button>
+        
+        <button
           onClick={handleDisableTracking}
           className="w-full bg-red-500 text-white px-3 py-2 rounded text-sm hover:bg-red-600"
         >
-          Disable Auto Tracking
+          Disable Tracking
         </button>
       </div>
       
