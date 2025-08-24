@@ -21,7 +21,7 @@ const SingleProduct = () => {
 
 
   return productData ? (
-    <div className="container mx-auto border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 mt-20">
+    <div className="container mx-auto border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 mt-20 p-5">
       <ProductDisplay productData={productData} />
       <ProductDescriptionAndReviews productData={productData} />
       <RelatedProducts allProductData={allProductData} productData={productData} />
