@@ -33,7 +33,7 @@ const HomeCarousel = () => {
           ))}
         </div>
       </div>
-      <div className="flex items-center mt-3 md:mt-0 space-x-2 absolute top-55 sm:-bottom-70 left-1/2 transform -translate-x-1/2">
+      <div className="flex items-center mt-3 md:mt-0 space-x-2 absolute bottom-40 sm:bottom-30 left-1/2 transform -translate-x-1/2">
         {images.map((_, index) => (
           <span
             key={index}
