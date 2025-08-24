@@ -27,7 +27,6 @@ const App = () => {
         <Route path='/products' element={<Products/>}/>
       </Routes>
       <Footer/>
-      <MetaPixelDebug />
     </div>
   )
 }

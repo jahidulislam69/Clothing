@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { trackProductView, trackAddToCart, trackPurchase, trackInitiateCheckout } from '@/assets/pixel';
+import { trackProductView, trackAddToCart, trackPurchase, trackInitiateCheckout, isAutomaticTrackingDisabled, disableAutomaticTracking } from '@/assets/pixel';
 
 const MetaPixelDebug = () => {
   const [debugMode, setDebugMode] = useState(false);
+  const [trackingStatus, setTrackingStatus] = useState('Unknown');
 
   const testProduct = {
     id: 'test-123',
@@ -29,6 +30,16 @@ const MetaPixelDebug = () => {
     trackInitiateCheckout(testProducts, 99.99);
   };
 
+  const handleCheckTrackingStatus = () => {
+    const isDisabled = isAutomaticTrackingDisabled();
+    setTrackingStatus(isDisabled ? 'Disabled ✅' : 'Enabled ❌');
+  };
+
+  const handleDisableTracking = () => {
+    disableAutomaticTracking();
+    handleCheckTrackingStatus();
+  };
+
   if (!debugMode) {
     return (
       <div className="fixed bottom-4 right-4 z-50">
@@ -51,6 +62,27 @@ const MetaPixelDebug = () => {
           className="text-gray-500 hover:text-gray-700"
         >
           ✕
+        </button>
+      </div>
+      
+      <div className="mb-3 p-2 bg-gray-100 rounded text-sm">
+        <div className="font-medium">Auto Tracking: {trackingStatus}</div>
+        <div className="text-xs text-gray-600 mt-1">Status: {trackingStatus}</div>
+      </div>
+      
+      <div className="space-y-2 mb-3">
+        <button
+          onClick={handleCheckTrackingStatus}
+          className="w-full bg-gray-500 text-white px-3 py-2 rounded text-sm hover:bg-gray-600"
+        >
+          Check Tracking Status
+        </button>
+        
+        <button
+          onClick={handleDisableTracking}
+          className="w-full bg-red-500 text-white px-3 py-2 rounded text-sm hover:bg-red-600"
+        >
+          Disable Auto Tracking
         </button>
       </div>
       

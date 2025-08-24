@@ -1,13 +1,20 @@
 import ReactPixel from "react-facebook-pixel";
 
 const options = {
-  autoConfig: true, // set pixel's autoConfig
+  autoConfig: false, // Disable automatic tracking to prevent unwanted events
   debug: false,     // enable logs for development
 };
 
 export const initPixel = (id) => {
   try {
     ReactPixel.init(id, {}, options);
+    
+    // Explicitly disable automatic tracking
+    if (window.fbq) {
+      window.fbq('consent', 'revoke');
+      console.log('Facebook Pixel automatic tracking disabled');
+    }
+    
     console.log('Facebook Pixel initialized with ID:', id);
   } catch (error) {
     console.error('Error initializing Facebook Pixel:', error);
@@ -40,6 +47,7 @@ export const trackProductView = (product) => {
 
 export const trackAddToCart = (product, size = null) => {
   try {
+    // Use trackCustom instead of track to avoid automatic event detection
     ReactPixel.trackCustom("AddToCart", {
       id: product.id,
       name: product.name,
@@ -79,5 +87,30 @@ export const trackInitiateCheckout = (products, value, currency = 'USD') => {
     console.log('Facebook Pixel: InitiateCheckout tracked');
   } catch (error) {
     console.error('Error tracking InitiateCheckout:', error);
+  }
+};
+
+// Function to manually disable automatic tracking if needed
+export const disableAutomaticTracking = () => {
+  try {
+    if (window.fbq) {
+      window.fbq('consent', 'revoke');
+      console.log('Facebook Pixel automatic tracking manually disabled');
+    }
+  } catch (error) {
+    console.error('Error disabling automatic tracking:', error);
+  }
+};
+
+// Function to check if automatic tracking is disabled
+export const isAutomaticTrackingDisabled = () => {
+  try {
+    if (window.fbq && window.fbq.consent) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error('Error checking automatic tracking status:', error);
+    return false;
   }
 };
