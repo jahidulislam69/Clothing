@@ -2,9 +2,16 @@ import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { trackProductView } from "@/assets/pixel";
 
 const LatestProducts = () => {
   const { bestsellers } = useContext(ShopContext);
+
+
+  const handleClick = () => {
+    trackProductView(product);
+    // navigate to product detail page
+  };
 
   return (
     <div className="container mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
@@ -13,7 +20,7 @@ const LatestProducts = () => {
           key={product.id}
           className="border-none hover:scale-[1.03] transition-transform duration-300 text-center"
         >
-          <Link to={`/product/${product.id}`}>
+          <Link to={`/product/${product.id}`} onClick={handleClick}>
             <CardHeader>
               <img
                 className="w-full sm:h-[400px] object-cover rounded-lg h-[180px]"

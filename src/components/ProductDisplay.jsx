@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import { StarIcon } from 'lucide-react';
+import { trackAddToCart } from '@/assets/pixel';
 
 const ProductDisplay = ({ productData }) => {
   const [thumbnail, setThumbnail] = useState(productData.images[0]);
   const [selectSize, setSelectSize] = useState(null);
+
+  const handleAddToCart = () => {
+    // Trigger Facebook Pixel AddToCart
+    trackAddToCart(productData.name, productData.price);
+
+    // 🔹 Then proceed with your actual cart logic
+    console.log("Product added to cart:", productData.name, productData.price);
+  };
 
   return (
     <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
@@ -53,7 +62,7 @@ const ProductDisplay = ({ productData }) => {
             ))}
           </div>
         </div>
-        <button className="bg-black text-white px-8 py-3 text-sm active:bg-orange-500">
+        <button onClick={trackAddToCart} className="bg-black text-white px-8 py-3 text-sm active:bg-orange-500">
           Add To Cart
         </button>
         <hr className="mt-8 sm:w-4/5" />
