@@ -7,13 +7,17 @@ import SingleProduct from './pages/SingleProduct'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Products from './pages/Products'
+import MetaPixelDebug from './components/MetaPixelDebug'
 
 import { initPixel, trackPageView } from './assets/pixel'
 
+// Facebook Pixel ID from your index.html
+const PIXEL_ID = '1608057283490493'
 
 const App = () => {
   return (
     <div className='container mx-auto'>
+      <PixelTracker />
       <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
@@ -23,6 +27,7 @@ const App = () => {
         <Route path='/products' element={<Products/>}/>
       </Routes>
       <Footer/>
+      <MetaPixelDebug />
     </div>
   )
 }
@@ -31,7 +36,7 @@ function PixelTracker() {
   const location = useLocation();
 
   useEffect(() => {
-    initPixel(pixelId);
+    initPixel(PIXEL_ID);
   }, []);
 
   useEffect(() => {
@@ -40,6 +45,5 @@ function PixelTracker() {
 
   return null;
 }
-
 
 export default App

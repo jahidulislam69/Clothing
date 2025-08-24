@@ -8,7 +8,7 @@ const ProductDisplay = ({ productData }) => {
 
   const handleAddToCart = () => {
     // Trigger Facebook Pixel AddToCart
-    trackAddToCart(productData.name, productData.price);
+    trackAddToCart(productData, selectSize);
 
     // 🔹 Then proceed with your actual cart logic
     console.log("Product added to cart:", productData.name, productData.price);
@@ -62,7 +62,7 @@ const ProductDisplay = ({ productData }) => {
             ))}
           </div>
         </div>
-        <button onClick={trackAddToCart} className="bg-black text-white px-8 py-3 text-sm active:bg-orange-500">
+        <button onClick={handleAddToCart} className="bg-black text-white px-8 py-3 text-sm active:bg-orange-500">
           Add To Cart
         </button>
         <hr className="mt-8 sm:w-4/5" />

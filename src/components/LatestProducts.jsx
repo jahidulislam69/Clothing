@@ -7,10 +7,8 @@ import { trackProductView } from "@/assets/pixel";
 const LatestProducts = () => {
   const { bestsellers } = useContext(ShopContext);
 
-
-  const handleClick = () => {
+  const handleProductClick = (product) => {
     trackProductView(product);
-    // navigate to product detail page
   };
 
   return (
@@ -20,7 +18,7 @@ const LatestProducts = () => {
           key={product.id}
           className="border-none hover:scale-[1.03] transition-transform duration-300 text-center"
         >
-          <Link to={`/product/${product.id}`} onClick={handleClick}>
+          <Link to={`/product/${product.id}`} onClick={() => handleProductClick(product)}>
             <CardHeader>
               <img
                 className="w-full sm:h-[400px] object-cover rounded-lg h-[180px]"
