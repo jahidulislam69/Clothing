@@ -32,8 +32,12 @@ const HoverAnim = () => {
             className=" w-full rounded-3xl "
           >
             <article className="relative z-50 flex flex-col items-center justify-center ">
-              <h1 className="max-w-2xl text-center text-4xl font-semibold tracking-tight text-gray-300 ">
+              <h1 className="max-w-2xl text-center text-4xl font-semibold tracking-tight text-gray-300 hidden sm:block">
                 Hover To Explore Our Imaginary <br />
+                Products Gallery
+              </h1>
+              <h1 className="max-w-2xl text-center text-4xl font-semibold tracking-tight text-gray-300 block sm:hidden">
+                Click To Explore Our Imaginary <br />
                 Products Gallery
               </h1>
             </article>
