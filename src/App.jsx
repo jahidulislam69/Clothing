@@ -8,11 +8,12 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Products from './pages/Products'
 import MetaPixelDebug from './components/MetaPixelDebug'
+import Swipers from './pages/Swiper'
 
 import { initPixel, trackPageView } from './assets/pixel'
 
 // Facebook Pixel ID from your index.html
-const PIXEL_ID = '1608057283490493'
+const PIXEL_ID = '1112524050240646'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/products' element={<Products/>}/>
+        <Route path='/swiper' element={<Swipers/>}/>
       </Routes>
       <Footer/>
       <MetaPixelDebug/>
